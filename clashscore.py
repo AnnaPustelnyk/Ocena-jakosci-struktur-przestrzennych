@@ -1,21 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 from Bio import PDB
-
 import numpy as np
-
-def read_pdb_coordinates(file_path):
-    parser = PDB.PDBParser(QUIET=True)
-    structure = parser.get_structure("rna_structure", file_path)
-
-    atom_coordinates = []
-    for model in structure:
-        for chain in model:
-            for residue in chain:
-                for atom in residue:
-                    atom_coordinates.append(atom.coord)
-
-    return np.array(atom_coordinates)
 
 
 def epsilon_vdw_PDB(atom_name, residue_name) :
@@ -471,7 +457,7 @@ def epsilon_vdw_PDB(atom_name, residue_name) :
     if residue_name in dvdw and atom_name in dvdw[residue_name]:
         return dvdw[residue_name][atom_name]
     else:
-        # Domyœlnie zwróæ 0, jeœli nie ma informacji o promieniu
+        # DomyÂœlnie zwrÃ³Ã¦ 0, jeÂœli nie ma informacji o promieniu
         return 0.0
 
 def calculate_clash_score(structure, distance_threshold=0.4):
@@ -501,7 +487,7 @@ def calculate_clash_score(structure, distance_threshold=0.4):
 
                                             if atom.parent.id == other_atom.parent.id:
                                                 continue
-                                            # Wykluczamy clashes z wi¹zaniami peptydowymi
+                                            # Wykluczamy clashes z wiÂ¹zaniami peptydowymi
                                             elif (other_atom.name == "C" and atom.name == "N") or (other_atom.name == "N" and atom.name == "C"):
                                                 continue
                                             # Wykluczamy clashes z mostkami dwusiarczkowymi
